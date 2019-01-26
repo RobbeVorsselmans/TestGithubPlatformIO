@@ -2,11 +2,15 @@
 
 #define ledpin 13
 int lowerBound = 50;
-int upperBound = 1000;
+int upperBound = 500;
 bool rampUp = true;
 int delayTime = lowerBound;
 
-void setup() { pinMode(ledpin, OUTPUT); }
+void setup() {
+  Serial.begin(9600);
+  pinMode(ledpin, OUTPUT);
+  Serial.println("Start!");
+  }
 
 void loop() {
   digitalWrite(ledpin, HIGH);
@@ -16,13 +20,13 @@ void loop() {
   if (rampUp) {
     delayTime *= 2;
     Serial.print("delayTime"); Serial.print(" : "); Serial.println(delayTime);
-    if (delayTime > upperBound) {
+    if (delayTime >= upperBound) {
       rampUp = false;
     }
   } else {
     delayTime /= 2;
     Serial.print("delayTime"); Serial.print(" : "); Serial.println(delayTime);
-    if (delayTime < lowerBound) {
+    if (delayTime <= lowerBound) {
       rampUp = true;
     }
   }
